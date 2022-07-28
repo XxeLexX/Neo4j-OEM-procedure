@@ -12,7 +12,6 @@ public class OEM_Procedure {
     @Procedure(mode = Mode.WRITE)
     @Description("com.lxx.neo4j.calDegree(Path)")
     public void calDegree(@Name("nodesList") List<Node> nodes, @Name("vertexId") String id){
-        
 
         int degree = 0;
         Long lastTimestamp = Long.MIN_VALUE;
@@ -35,7 +34,7 @@ public class OEM_Procedure {
             }
             // The payload is 0, means the degree does not change and the intervals can be merged
             if (degree_of_timestamp != 0) {
-                try(Transaction tx = graphDb.beginTx()){
+                try(Transaction tx = graphDb.beginTx()) {
                     //collector.collect(new Tuple4<>(vertexId, lastTimestamp, entry.getKey(), degree));
                     Node node_temp = tx.createNode(Label.label("TVD"));
                     node_temp.setProperty("vid", id);
@@ -66,17 +65,4 @@ public class OEM_Procedure {
             throw new IllegalArgumentException("\n!!ERROR!! \nlastTimestamp > vertexToTime\n");
         } // else, the ending bound of the vertex interval equals the last timestamp of the edges
     }
-
-
-    private TreeMap<Long,Integer> buildTree(Iterable<Node> nodes){
-        TreeMap<Long,Integer> degreeTree = new TreeMap<>();
-            for (Node node : nodes){
-                if(node.hasProperty("timestamp") && node.hasProperty("degree")){
-                    degreeTree.put(Long.valueOf(node.getProperty("timestamp").toString()), Integer.valueOf(node.getProperty("degree").toString()));
-                }
-            }
-
-        return degreeTree;
-    }
-
 }

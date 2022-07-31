@@ -6,11 +6,11 @@ import org.neo4j.procedure.*;
 import java.util.*;
 
 // Procedures can take arguments, perform operations on the database, and return results.
-public class OEM_Procedure {
+public class DegreeCalculator {
     @Context public GraphDatabaseService graphDb;
 
     @Procedure(mode = Mode.WRITE)
-    @Description("com.lxx.neo4j.calDegree(Path)")
+    @Description("com.lxx.neo4j.calDegree(nodes, vertexId)")
     public void calDegree(@Name("nodesList") List<Node> nodes, @Name("vertexId") String id){
 
         int degree = 0;

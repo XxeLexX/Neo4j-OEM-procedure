@@ -33,7 +33,7 @@ public class ExtractFromCSV {
                     "WITH n.id AS id, collect(n) AS ns\n" +
                     "CALL apoc.refactor.mergeNodes(ns)\n" +
                     "YIELD node\n" +
-                    "RETURN node";
+                    "RETURN count(node)";
             tx.execute(merge);
             tx.commit();
         }

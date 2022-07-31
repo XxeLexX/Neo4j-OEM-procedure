@@ -36,7 +36,7 @@ public class TransforToTVD {
                     "WITH n.vid AS id, collect(n) as tvd\n" +
                     "CALL apoc.refactor.mergeNodes(tvd)\n" +
                     "YIELD node\n" +
-                    "RETURN node";
+                    "RETURN count(node)";
             tx.execute(mergeVD);
             tx.commit();
         }

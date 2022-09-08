@@ -10,13 +10,11 @@ public class ExtractFromCSV {
 
     @Procedure(mode = Mode.WRITE)
     @Description("com.lxx.neo4j.createGraphFromCSV(inputPath,degreeType,dimensionType)")
-    public void createGraphFromCSV(@Name("inputPath") String inputPath,
-                                   @Name(value = "degreeType", defaultValue = "IN") String degreeType,
-                                   @Name(value = "dimensionType", defaultValue = "VALID_TIME") String dimensionType) {
+    public void createGraphFromCSV(@Name("inputPath") String inputPath) {
         // read csv to graph
         String read = "USING PERIODIC COMMIT 1000\n" +
                 "LOAD CSV FROM " + inputPath + " AS line\n" + "FIELDTERMINATOR ';'\n" +
-                "WITH line LIMIT 10000\n" +
+                //"WITH line LIMIT 10000\n" +
                 "WITH line, split(line[6], \"),(\") AS time_all\n" +
                 "WITH line, split(time_all[1], ',') AS valid, split(time_all[0], ',') AS tx\n" +
                 "WITH line, valid[0] AS v_from, replace(valid[1], ')', '') AS v_to, replace(tx[0], '(', '') AS t_from, tx[1] AS t_to\n" +

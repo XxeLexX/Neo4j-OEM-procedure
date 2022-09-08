@@ -10,7 +10,7 @@ public class ExtractTemporalData {
     @Procedure(mode = Mode.WRITE)
     @Description("com.lxx.neo4j.toTemporalVertex(relationship, degreeType, dimensionType)")
     public void toTemporalVertex(@Name("relationship") Relationship relationship,
-                                 @Name(value = "degreeType", defaultValue = "IN") String degreeType,
+                                 @Name(value = "degreeType", defaultValue = "BOTH") String degreeType,
                                  @Name(value = "dimensionType", defaultValue = "VALID_TIME") String dimensionType) {
 
         Long from = (dimensionType.equals("VALID_TIME")) ? Long.valueOf(relationship.getProperty("val_from").toString()) : Long.valueOf(relationship.getProperty("tx_from").toString());
